@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if IE 7]>         <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="source-page-role" content="navigation">
+    <title>Изображения</title>
+
+    <!-- Source default resources -->
+        <link href="/source/assets/css/source.css" rel="stylesheet">
+
+        <!--[if lt IE 9]><script src="/source/assets/js/lib/html5shiv.js"></script><![endif]-->
+        <script data-main="/source/assets/js/enter-the-source.js" src="/source/assets/js/require.bundle.js"></script>
+    <!-- /Source default resources -->
+
+    <link href="/dashboards/images/res/styles.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="source_container">
+        <%- header %>
+        <div class="source_main source_col-main" role="main">
+
+            <div class="source_catalog">
+                <h2 class="source_catalog_title">Изображения</h2>
+
+                <div class="image-tool-controls-wrapper">
+					<div class="search-container control-container">
+						<label class="search">Find image:</label>
+						<input type="text" class="images-search-field" />
+						<a class="search-clear-button button"> Clear </a>
+					</div>
+
+				</div>
+				<div class="images-container">
+				<% for (var i = 0; i < images.length; i++) { %>
+					<div class="image-item-wrapper" id="<%= images[i].url %>">
+						<h4 class="image-item-header"><%= images[i].filename %></h4>
+						<div class="image-demo-wrapper"><img src="<%= images[i].url %>"></div>
+						<div class="image-item-info">
+							<div class="image-path-container">
+								<label class="image-path-label">Path:</label>
+								<span class="image-path-data"><%= images[i].url %></span>
+							</div>
+							<div class="image-directory-container">
+								<label class="image-directory-label">Directory:</label>
+								<span class="image-directory-data"><%= images[i].path %></span>
+							</div>
+							<div class="image-lastModified-container">
+								<label class="image-lastModified-label">Last Modified:</label>
+								<span class="image-lastModified-data"><%= images[i].modifiedDate %></span>
+							</div>
+							<div class="image-size-container">
+								<label class="image-size-label">Size:</label>
+								<span class="image-size-data"><%= "height: " + images[i].metaInfo.height + "px, width: " + images[i].metaInfo.width + "px"%></span>
+							</div>
+							<div class="image-colors-container spoiler">
+								<% if (images[i].metaInfo.colormap) { %>
+								    <input type="checkbox">
+									<span class="image-colors-data box">
+										<label class="image-colors-label">Colors scheme</label>
+										<ul>
+										<% for (var j in images[i].metaInfo.colormap) { %>
+											<li> <%= images[i].metaInfo.colormap[j] %> </li>
+										<% } %>
+										</ul>
+									</span>
+								<% } %>
+							</div>
+							<div class="image-usage-container spoiler">
+								<% if (images[i].usages.length) { %>
+								    <input type="checkbox">
+									<span class="image-colors-data box">
+										<label class="image-colors-label">Usages</label>
+										<ul>
+										<% for (var j in images[i].usages) { %>
+											<li>
+												<i><%= images[i].usages[j].file %> (<%= images[i].usages[j].line %>)</i>
+												<code><b> <%= images[i].usages[j].selector %></b></code>
+											</li>
+										<% } %>
+										</ul>
+									</span>
+								<% } %>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				<% } %>
+				</div>
+
+            </div>	
+        </div>
+    </div>
+    <script src="/dashboards/images/res/app.js"></script>    
+</body>
+</html>
